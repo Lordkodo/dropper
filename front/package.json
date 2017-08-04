@@ -1,0 +1,32 @@
+{
+  "name": "owkin",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "1.0.0"
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-router-redux": "next",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+	"less": "2.7.2",
+	"md5": "2.2.1",
+    "sanitize.css": "^5.0.0",
+	"bluebird": "3.5.0",
+	"superagent": "3.5.2"
+  },
+  "scripts": {
+    "watch-css": "node ./scripts/less.js",
+	"start": "concurrently --kill-others \"npm run watch-css\" \"react-scripts start\"",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "homepage": "https://cra-redux-router-thunk.herokuapp.com"
+}
