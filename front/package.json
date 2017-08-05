@@ -24,9 +24,8 @@
   "scripts": {
     "watch-css": "node ./scripts/less.js",
 	"start": "concurrently --kill-others \"npm run watch-css\" \"react-scripts start\"",
-    "build": "npm run build-css && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "homepage": "https://cra-redux-router-thunk.herokuapp.com"
+  }
 }

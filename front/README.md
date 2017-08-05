@@ -1,4 +1,11 @@
-# CRA Redux, React Router & Redux Thunk
+# Dropper Front part
 
-* Tutorial: [Getting started with create-react-app, Redux, React Router & Redux Thunk](https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f)
-* Example: [View on Heroku](https://cra-redux-router-thunk.herokuapp.com/)
+* You can drop a file on landing page
+* The file is send to the backend (Python) if it was XML or CSV, and the size was correct
+* The backend process the file, upload the result in GCS and it answers with the link to the result
+
+# Informations
+
+* Use create-react-app, see [here](https://github.com/facebookincubator/create-react-app)
+* Use less, see [here](http://lesscss.org/)
+* Can see an example [here](https://websites-152921.appspot.com/)
