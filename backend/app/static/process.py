@@ -1,2 +1,2 @@
-f = open('dst.csv',"w+")
+f = open('result.csv',"w+")
 f.write('data out')

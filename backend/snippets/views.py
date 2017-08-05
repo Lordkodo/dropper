@@ -4,6 +4,10 @@ from rest_framework import status
 import hashlib
 import subprocess
 
+RESULT_FILE = '/result.csv'
+BUCKET = 'gs://lordkodo-dropper/drop/'
+URL = 'https://storage.googleapis.com/lordkodo-dropper/drop/'
+
 @api_view(['POST'])
 def filetransform(request, format=None):
     #Test extension
@@ -17,7 +21,6 @@ def filetransform(request, format=None):
     saveFile(src, request.data.get('file'), md5)
     execAndSave(md5)
 
-    clean(src)
     return Response({
         'url': generateURL(md5),
     })
@@ -28,7 +31,7 @@ def calcMD5(data):
 
 # Return the url to the result file
 def generateURL(md5):
-    return 'https://storage.googleapis.com/lordkodo-dropper/drop/' + md5 + '/result.csv'
+    return URL + md5 + RESULT_FILE
 
 # Return True if extension is wrong
 def wrongExtension(name):
@@ -40,7 +43,7 @@ def wrongExtension(name):
 
 # Export file on GCS
 def exportGCS(name, md5):
-    subprocess.Popen(['gsutil','cp', name, 'gs://lordkodo-dropper/drop/' + md5 + '/' + name])
+    subprocess.Popen(['gsutil','cp', name, BUCKET + md5 + '/' + name])
 
 # Create a file and save it in GCS
 def saveFile(name, data, md5):
@@ -56,8 +59,4 @@ def execAndSave(md5):
 
     #save on gcs
     exportGCS('result.csv', md5)
-    subprocess.Popen(['gsutil','acl', 'ch', '-u', 'AllUsers:R', 'gs://lordkodo-dropper/drop/' + md5 + '/result.csv'])
-
-# Clean the workspace
-def clean(name):
-    subprocess.Popen(['rm','-f', name, 'result.csv'])
+    subprocess.Popen(['gsutil','acl', 'ch', '-u', 'AllUsers:R', BUCKET + md5 + RESULT_FILE])
