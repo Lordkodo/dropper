@@ -3,29 +3,58 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework import status
 from django.contrib.staticfiles.templatetags.staticfiles import static
+import hashlib
 import subprocess
+
+from django.core.files.storage import default_storage
+
 
 @api_view(['POST'])
 def filetransform(request, format=None):
     #Test extension
-    if testExtension(request.data.get('name')) :
+    if wrongExtension(request.data.get('name')) :
         content = {'error': 'Extension isn\'t allowed'}
         return Response(content, status=status.HTTP_400_BAD_REQUEST, )
 
-    md5 = request.data.get('md5')
-    url = generateURL(md5)
+    md5 = calcMD5(request.data.get('file'))
 
-    # if exist url -> return url
-    # else -> run script + save in gcs + return url
-    # b = subprocess.call([static("test.py")])
+    src = 'src.' + request.data.get('name').split('.')[1]
+    saveFile(src, request.data.get('file'), md5)
+    execAndSave()
 
+    clean(src)
     return Response({
-        'url': url,
+        'url': generateURL(md5),
     })
 
-def generateURL(md5):
-    return 'https://fake-url/' + md5
+def calcMD5(data):
+    return hashlib.md5(data.encode('utf-8')).hexdigest()
 
-def testExtension(name):
-    extension = name.split('.')[1];
+def generateURL(md5):
+    return 'https://storage.googleapis.com/lordkodo-dropper/drop/' + md5 + '/dst.csv'
+
+def wrongExtension(name):
+    if len(name.split('.')) < 2:
+        return True
+
+    extension = name.split('.')[1]
     return extension != 'csv' and extension != 'xml'
+
+def exportGCS(name, md5):
+    subprocess.Popen(['gsutil','cp', 'dst.csv', 'gs://lordkodo-dropper/drop/' + md5 + '/' + name])
+
+def saveFile(name, data, md5):
+    f = open(name,"w+")
+    f.write(data)
+
+    # save on gcs
+    exportGCS(name, md5)
+
+def execAndSave():
+    subprocess.Popen(['python','-u', 'app/static/process.py'])
+
+    #save on gcs
+    exportGCS('dst.csv')
+
+def clean(name):
+    subprocess.Popen(['rm','-f', name, 'dst.csv'])
