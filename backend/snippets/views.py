@@ -50,7 +50,7 @@ def saveFile(name, data, md5):
     # save on gcs
     exportGCS(name, md5)
 
-def execAndSave(, md5):
+def execAndSave(md5):
     subprocess.Popen(['python','-u', 'app/static/process.py'])
 
     #save on gcs
