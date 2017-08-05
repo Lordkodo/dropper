@@ -1,13 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
 from rest_framework import status
-from django.contrib.staticfiles.templatetags.staticfiles import static
 import hashlib
 import subprocess
-
-from django.core.files.storage import default_storage
-
 
 @api_view(['POST'])
 def filetransform(request, format=None):
@@ -55,6 +50,7 @@ def execAndSave(md5):
 
     #save on gcs
     exportGCS('dst.csv', md5)
+    subprocess.Popen(['gsutil','acl', 'ch', '-u', 'AllUsers:R', 'gs://lordkodo-dropper/drop/' + md5 + '/' + name])
 
 def clean(name):
     subprocess.Popen(['rm','-f', name, 'dst.csv'])
