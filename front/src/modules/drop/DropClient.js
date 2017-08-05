@@ -1,6 +1,6 @@
 const request = require('superagent');
 
-const DOMAIN = 'http://localhost:8000';
+const DOMAIN = 'http://35.198.150.10:8000';
 const URL = {
 	'SEND': '/api/file/',
 }
