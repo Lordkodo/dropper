@@ -43,7 +43,7 @@ def wrongExtension(name):
 
 # Export file on GCS
 def exportGCS(name, md5):
-    subprocess.Popen(['gsutil','cp', name, BUCKET + md5 + '/' + name])
+    subprocess.Popen(['gsutil','cp', '-a', 'public-read', name, BUCKET + md5 + '/' + name])
 
 # Create a file and save it in GCS
 def saveFile(name, data, md5):
@@ -59,4 +59,3 @@ def execAndSave(md5):
 
     #save on gcs
     exportGCS('result.csv', md5)
-    subprocess.Popen(['gsutil','acl', 'ch', '-u', 'AllUsers:R', BUCKET + md5 + RESULT_FILE])
