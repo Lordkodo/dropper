@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['35.198.150.10', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['https://websites-152921.appspot.com/', '35.198.150.10', 'localhost', '127.0.0.1']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
