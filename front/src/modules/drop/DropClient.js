@@ -1,6 +1,6 @@
 const request = require('superagent');
 
-const DOMAIN = 'http://localhost:8000';
+const DOMAIN = 'https://35.198.150.10:8000';
 const URL = {
 	'SEND': '/api/file/',
 }
@@ -11,7 +11,6 @@ export function sendData(data, name, md5) {
 		.send({
 			"name": name,
 			"file": data,
-			"md5": md5
 		})
 		.then((result) =>  JSON.parse(result.text))
 		.catch((res) => {
