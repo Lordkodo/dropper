@@ -20,7 +20,7 @@ def filetransform(request, format=None):
 
     src = 'src.' + request.data.get('name').split('.')[1]
     saveFile(src, request.data.get('file'), md5)
-    execAndSave()
+    execAndSave(md5)
 
     clean(src)
     return Response({
@@ -50,11 +50,11 @@ def saveFile(name, data, md5):
     # save on gcs
     exportGCS(name, md5)
 
-def execAndSave():
+def execAndSave(, md5):
     subprocess.Popen(['python','-u', 'app/static/process.py'])
 
     #save on gcs
-    exportGCS('dst.csv')
+    exportGCS('dst.csv', md5)
 
 def clean(name):
     subprocess.Popen(['rm','-f', name, 'dst.csv'])
