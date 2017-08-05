@@ -50,7 +50,7 @@ def execAndSave(md5):
 
     #save on gcs
     exportGCS('dst.csv', md5)
-    subprocess.Popen(['gsutil','acl', 'ch', '-u', 'AllUsers:R', 'gs://lordkodo-dropper/drop/' + md5 + '/' + name])
+    subprocess.Popen(['gsutil','acl', 'ch', '-u', 'AllUsers:R', 'gs://lordkodo-dropper/drop/' + md5 + '/dst.csv'])
 
 def clean(name):
     subprocess.Popen(['rm','-f', name, 'dst.csv'])
