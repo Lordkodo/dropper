@@ -7,9 +7,7 @@ import subprocess
 
 @api_view(['POST'])
 def filetransform(request, format=None):
-    # look the hash, if already exist send url
-    # else process file, and send it
-    extension = request.data.get('name').split('.')[1]
+    #Test extension
     if testExtension(request.data.get('name')) :
         content = {'error': 'Extension isn\'t allowed'}
         return Response(content, status=status.HTTP_400_BAD_REQUEST, )
@@ -23,7 +21,6 @@ def filetransform(request, format=None):
 
     return Response({
         'url': url,
-        'extension': extension,
     })
 
 def generateURL(md5):

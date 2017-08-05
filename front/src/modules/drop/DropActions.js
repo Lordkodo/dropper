@@ -8,7 +8,7 @@ export const RESET_FILE = 'RESET_FILE';
 export const ERROR_FILE = 'ERROR_FILE';
 export const DROP_FAIL = 'DROP_FAIL';
 
-const extensions = ['csv', 'xml', 'lnk'];
+const extensions = ['csv', 'xml'];
 
 export function testSize(file) {
 	return new Promise((resolve, reject) => {
