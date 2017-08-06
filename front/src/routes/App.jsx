@@ -5,7 +5,14 @@ import Drop from './drop/Drop.jsx';
 import './App.css';
 
 export default class App extends Component {
+	componentDidMount() {
+		if (window.location.protocol === 'https:') {
+			window.location = 'http://' + window.location.host;
+		}
+	}
+
 	render() {
+
 		return (
 			<div className='App'>
 				<main>

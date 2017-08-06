@@ -54,7 +54,7 @@ export default class Drop extends Component {
 				onDragLeave={this.onDragLeave}
 				onDrop={this.onDrop}
 			>
-				<h1 className='Drop-title'>Toototo</h1>
+				<h1 className='Drop-title'>Dropper</h1>
 
 				{this.renderImage()}
 
