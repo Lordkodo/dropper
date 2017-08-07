@@ -4,7 +4,7 @@ from rest_framework import status
 import hashlib
 import subprocess
 
-RESULT_FILE = '/result.csv'
+RESULT_FILE = 'result.csv'
 BUCKET = 'gs://lordkodo-dropper/drop/'
 URL = 'https://storage.googleapis.com/lordkodo-dropper/drop/'
 
@@ -31,7 +31,7 @@ def calcMD5(data):
 
 # Return the url to the result file
 def generateURL(md5):
-    return URL + md5 + RESULT_FILE
+    return URL + md5 + '/' + RESULT_FILE
 
 # Return True if extension is wrong
 def wrongExtension(name):
@@ -58,4 +58,4 @@ def execAndSave(md5):
     subprocess.Popen(['python','-u', 'app/static/process.py'])
 
     #save on gcs
-    exportGCS('result.csv', md5)
+    exportGCS(RESULT_FILE, md5)
